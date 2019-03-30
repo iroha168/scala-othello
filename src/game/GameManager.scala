@@ -12,9 +12,11 @@ case class GameManager(preferences: GamePreferences) {
   def start: Unit = {
     while (flg) {
       game.show
-      val move = player1.nextMove
-      println(s"Your move is $move")
-      game.next(move)
+      //      val move = player1.nextMove
+      //      println(s"Your move is $move")
+      //      game.next(NumericCoordinate(5, 4))
+      val result = game.avaliableCoords
+      println(result)
       flg = false
       game.show
     }
