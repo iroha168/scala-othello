@@ -21,6 +21,7 @@ case class GameManager(preferences: GamePreferences) {
       game.next(move)
       game.show
       game.turn
+      Thread.sleep(1000)
     }
   }
 }

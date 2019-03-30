@@ -1,6 +1,6 @@
 package game
 
-import field.{Board, Direction, NumericCoordinate}
+import field.{Board, Direction, Empty, NumericCoordinate}
 import player.PlayerPair
 
 import scala.collection.mutable
@@ -44,7 +44,8 @@ case class Game(board: Board, var pair: PlayerPair) {
   def avaliableCoords: Set[NumericCoordinate] = Direction.values.foldLeft(Set[NumericCoordinate]()) { (turnable, d) =>
     val result = for (x <- 0 until 8; y <- 0 until 8) yield {
       val move = NumericCoordinate(x, y)
-      d(move) match {
+      if(board.cells(move) != Empty) turnable
+      else d(move) match {
         case Some(coord) if board.cells(coord) == pair.opponentColor => {
           val list = reverse(move, d)
           if (!list.isEmpty)
