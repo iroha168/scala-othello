@@ -50,12 +50,14 @@ final object Empty extends Status(".")
 
 case class Board(val cells: mutable.SortedMap[NumericCoordinate, Status] = Board.initCells) {
   def display: Unit = {
-    for {row <- 0 to 7; col <- 0 to 7} yield NumericCoordinate(row, col) match {
-      case coord@NumericCoordinate(_, 7) => println(" " + cells(coord).symbol + " ")
-      case coord@_ => print(" " + cells(coord).symbol + " ")
+    for {y <- 0 to 7; x <- 0 to 7} yield NumericCoordinate(x, y) match {
+      case coord@NumericCoordinate(7, _) => println(" " + cells(coord).symbol + " ")
+      case coord => print(" " + cells(coord).symbol + " ")
     }
     println
   }
+
+  def countEmpty: Int = cells.count(_._2 == Empty)
 }
 
 object Board {

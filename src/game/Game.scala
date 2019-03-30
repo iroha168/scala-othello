@@ -5,7 +5,7 @@ import player.PlayerPair
 
 import scala.collection.mutable
 
-case class Game(board: Board, pair: PlayerPair) {
+case class Game(board: Board, var pair: PlayerPair) {
   def finished: Boolean = false
 
   type Turnable = mutable.Seq[NumericCoordinate]
@@ -55,5 +55,24 @@ case class Game(board: Board, pair: PlayerPair) {
       }
     }
     result.flatten.toSet
+  }
+
+  def turn = {
+    pair = pair.swap
+    if(!canMove) pair = pair.swap
+
+  }
+  def canMove: Boolean = {
+    !avaliableCoords.isEmpty
+  }
+
+  def isFinished: Boolean ={
+    if(board.countEmpty == 0) true
+    else if(!canMove) {
+      pair.swap
+      if(!canMove) true
+      else false
+    }
+    else false
   }
 }
